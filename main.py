@@ -1,15 +1,8 @@
-import os
-
-from dotenv import load_dotenv
+from decouple import config
 from pytimeparse import parse
 import ptbot
 
-
-load_dotenv()
-
-TG_TOKEN = os.getenv('BOT_TOKEN')
-
-bot = ptbot.Bot(TG_TOKEN)
+TG_TOKEN = config('BOT_TOKEN')
 
 
 def render_progressbar(total, iteration, prefix='', suffix='', length=30, fill='█', zfill='░'):
@@ -27,7 +20,7 @@ def reply(seconds_left, chat_id, message_id, total_seconds):
 
 
 def finish_counting(chat_id, original_message):
-    bot.send_message(chat_id, f'Время вышло.')
+    bot.send_message(chat_id, 'Время вышло.')
 
 
 def notify_progress(author_id, message_text):
@@ -54,4 +47,5 @@ def main():
 
 
 if __name__ == '__main__':
+    bot = ptbot.Bot(TG_TOKEN)
     main()
